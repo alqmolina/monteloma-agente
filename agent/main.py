@@ -51,6 +51,20 @@ async def health_check():
     return {"status": "ok", "service": "agentkit-monteloma"}
 
 
+@app.get("/debug")
+async def debug_env():
+    """Diagnóstico de variables de entorno — eliminar en producción."""
+    return {
+        "ANTHROPIC_API_KEY": "SET" if os.getenv("ANTHROPIC_API_KEY") else "NOT SET",
+        "WHATSAPP_PROVIDER": os.getenv("WHATSAPP_PROVIDER", "NOT SET"),
+        "TWILIO_ACCOUNT_SID": "SET" if os.getenv("TWILIO_ACCOUNT_SID") else "NOT SET",
+        "TWILIO_AUTH_TOKEN": "SET" if os.getenv("TWILIO_AUTH_TOKEN") else "NOT SET",
+        "TWILIO_PHONE_NUMBER": os.getenv("TWILIO_PHONE_NUMBER", "NOT SET"),
+        "ENVIRONMENT": os.getenv("ENVIRONMENT", "NOT SET"),
+        "PORT": os.getenv("PORT", "NOT SET"),
+    }
+
+
 @app.get("/webhook")
 async def webhook_verificacion(request: Request):
     """Verificación GET del webhook (requerido por Meta Cloud API, no-op para Twilio)."""
