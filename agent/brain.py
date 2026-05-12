@@ -10,7 +10,13 @@ from dotenv import load_dotenv
 load_dotenv()
 logger = logging.getLogger("agentkit")
 
-client = AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+
+def obtener_cliente() -> AsyncAnthropic:
+    """Crea el cliente de Anthropic leyendo la API key en tiempo de ejecución."""
+    api_key = os.getenv("ANTHROPIC_API_KEY")
+    if not api_key:
+        raise ValueError("ANTHROPIC_API_KEY no configurada en las variables de entorno")
+    return AsyncAnthropic(api_key=api_key)
 
 
 def cargar_config_prompts() -> dict:
@@ -68,6 +74,7 @@ async def generar_respuesta(mensaje: str, historial: list[dict]) -> str:
     })
 
     try:
+        client = obtener_cliente()
         response = await client.messages.create(
             model="claude-sonnet-4-6",
             max_tokens=1024,
