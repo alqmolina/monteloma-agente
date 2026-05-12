@@ -53,14 +53,18 @@ async def health_check():
 
 @app.get("/test-anthropic")
 async def test_anthropic():
-    """Verifica conectividad con la API de Anthropic."""
-    import httpx
+    """Verifica la API key de Anthropic con una llamada real."""
     try:
-        async with httpx.AsyncClient(timeout=10) as client:
-            r = await client.get("https://api.anthropic.com")
-            return {"status": r.status_code, "conectado": True}
+        from agent.brain import obtener_cliente
+        client = obtener_cliente()
+        response = await client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=10,
+            messages=[{"role": "user", "content": "di hola"}]
+        )
+        return {"ok": True, "respuesta": response.content[0].text}
     except Exception as e:
-        return {"error": str(e), "conectado": False}
+        return {"ok": False, "error": str(e), "tipo": type(e).__name__}
 
 
 @app.get("/debug")
