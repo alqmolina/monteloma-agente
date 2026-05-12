@@ -51,43 +51,6 @@ async def health_check():
     return {"status": "ok", "service": "agentkit-monteloma"}
 
 
-@app.get("/test-anthropic")
-async def test_anthropic():
-    """Test raw httpx POST a Anthropic para diagnosticar conexión."""
-    import httpx
-    api_key = os.getenv("ANTHROPIC_API_KEY", "")
-    try:
-        async with httpx.AsyncClient(timeout=30) as client:
-            r = await client.post(
-                "https://api.anthropic.com/v1/messages",
-                headers={
-                    "x-api-key": api_key,
-                    "anthropic-version": "2023-06-01",
-                    "content-type": "application/json",
-                },
-                json={
-                    "model": "claude-haiku-4-5-20251001",
-                    "max_tokens": 10,
-                    "messages": [{"role": "user", "content": "hi"}]
-                }
-            )
-            return {"status": r.status_code, "body": r.text[:300]}
-    except Exception as e:
-        return {"error": str(e), "tipo": type(e).__name__, "key_length": len(api_key)}
-
-
-@app.get("/debug")
-async def debug_env():
-    """Diagnóstico de variables de entorno — eliminar en producción."""
-    return {
-        "ANTHROPIC_API_KEY": "SET" if os.getenv("ANTHROPIC_API_KEY") else "NOT SET",
-        "WHATSAPP_PROVIDER": os.getenv("WHATSAPP_PROVIDER", "NOT SET"),
-        "TWILIO_ACCOUNT_SID": "SET" if os.getenv("TWILIO_ACCOUNT_SID") else "NOT SET",
-        "TWILIO_AUTH_TOKEN": "SET" if os.getenv("TWILIO_AUTH_TOKEN") else "NOT SET",
-        "TWILIO_PHONE_NUMBER": os.getenv("TWILIO_PHONE_NUMBER", "NOT SET"),
-        "ENVIRONMENT": os.getenv("ENVIRONMENT", "NOT SET"),
-        "PORT": os.getenv("PORT", "NOT SET"),
-    }
 
 
 @app.get("/webhook")
