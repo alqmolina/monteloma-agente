@@ -19,13 +19,18 @@ log_level = logging.DEBUG if ENVIRONMENT == "development" else logging.INFO
 logging.basicConfig(level=log_level)
 logger = logging.getLogger("agentkit")
 
-proveedor = obtener_proveedor()
 PORT = int(os.getenv("PORT", 8000))
+
+# El proveedor se inicializa en el lifespan para asegurar que las variables
+# de entorno ya estén disponibles (especialmente en Railway/producción)
+proveedor = None
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Inicializa la base de datos al arrancar el servidor."""
+    """Inicializa el proveedor y la base de datos al arrancar el servidor."""
+    global proveedor
+    proveedor = obtener_proveedor()
     await inicializar_db()
     logger.info("Base de datos inicializada")
     logger.info(f"Servidor AgentKit corriendo en puerto {PORT}")
