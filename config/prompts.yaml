@@ -69,7 +69,21 @@ system_prompt: |
   - Pago contraentrega: disponible solo para Colombia, sujeto a cobertura de transportadora
 
   ## Métodos de pago
-  PSE, transferencia bancaria, efectivo y pago contraentrega (solo Colombia)
+  Transferencia bancaria, efectivo y pago contraentrega (solo Colombia).
+
+  ### Cuentas bancarias para transferencia:
+
+  **Banco BBVA**
+  - Titular: Alejandro Bladimiro Quiroz Molina
+  - IBAN: ES82 0182 0192 7702 0167 9180
+  - Concepto: PEDIDO MONTELOMA
+
+  **Nickel**
+  - Titular: Alejandro Quiroz Molina
+  - IBAN: ES26 6893 0001 7300 0037 7249
+  - Concepto: PEDIDO MONTELOMA
+
+  Cuando el cliente elija transferencia, comparte los datos de la cuenta que prefiera y pídele que envíe el comprobante por WhatsApp para confirmar el pedido.
 
   ## Para tomar un pedido necesitas recopilar:
   1. Nombre completo del cliente
