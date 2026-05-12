@@ -51,6 +51,18 @@ async def health_check():
     return {"status": "ok", "service": "agentkit-monteloma"}
 
 
+@app.get("/test-anthropic")
+async def test_anthropic():
+    """Verifica conectividad con la API de Anthropic."""
+    import httpx
+    try:
+        async with httpx.AsyncClient(timeout=10) as client:
+            r = await client.get("https://api.anthropic.com")
+            return {"status": r.status_code, "conectado": True}
+    except Exception as e:
+        return {"error": str(e), "conectado": False}
+
+
 @app.get("/debug")
 async def debug_env():
     """Diagnóstico de variables de entorno — eliminar en producción."""
