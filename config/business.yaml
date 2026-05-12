@@ -1,0 +1,28 @@
+# Configuración del negocio — Generado por AgentKit
+negocio:
+  nombre: "MONTELOMA"
+  descripcion: >
+    Café de especialidad importado desde Colombia. Ofrecemos diferentes variedades
+    de café de alta calidad y exclusivos cosechados en Colombia. Nuestros clientes
+    están ubicados en toda España y Europa. Nos especializamos en conseguir el mejor
+    café disponible, comprando microlotes de diferentes orígenes en Colombia, como
+    Huila, Quindío, Risaralda, Cauca, Tolima y Antioquia.
+  horario: "Lunes a Domingo, 1am a 12pm"
+  cobertura: "Colombia, España y Estados Unidos"
+  canales:
+    instagram: "@montelomacafé"
+    tienda_online: "monteloma.co"
+    whatsapp: "Disponible"
+
+agente:
+  nombre: "Soporte Monteloma"
+  tono: "Amigable y casual"
+  casos_de_uso:
+    - "Tomar pedidos"
+    - "Responder preguntas frecuentes"
+    - "Calificar y atender leads / ventas"
+    - "Soporte post-venta"
+
+metadata:
+  creado: "2026-05-11"
+  version: "1.0"
