@@ -30,3 +30,7 @@ Thumbs.db
 # Node
 node_modules/
 package-lock.json
+
+# Docker (Railway usa Nixpacks, Dockerfile solo para uso local)
+Dockerfile
+docker-compose.yml
